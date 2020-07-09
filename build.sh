@@ -5,7 +5,7 @@ rm build/rogues_party
 
 # build project
 cd build
-cmake .. >> /dev/null
+cmake .. -DCMAKE_EXPORT_COMPILE_COMMANDS=ON >> /dev/null
 cmake --build .
 cd ..
 
