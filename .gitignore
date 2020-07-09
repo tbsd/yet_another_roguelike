@@ -1,5 +1,6 @@
 secrets.md
 dreamgame.md
+compile_commands.json
 build/
 CMakeFiles/
 lib/
