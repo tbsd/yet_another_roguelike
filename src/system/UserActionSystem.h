@@ -21,6 +21,7 @@ namespace RoguesParty {
           entityx::TimeDelta dt) {}
 
       void receive(const UserActionEvent &userActionEvent) {
+        /// TODO: add multiple actions processing
         // for userActionEvent.actions["type"]
         moveObject(userActionEvent);
         // switch (userActionEvent.actions[""type]) {

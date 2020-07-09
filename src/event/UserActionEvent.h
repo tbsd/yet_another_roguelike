@@ -9,8 +9,8 @@ namespace RoguesParty {
     entityx::Entity userEntity;
     nlohmann::json actions;
 
-    UserActionEvent(entityx::Entity serEntity, nlohmann::json actions) : 
-      userEntity(serEntity), actions(actions) {};
+    UserActionEvent(entityx::Entity userEntity, nlohmann::json actions) : 
+      userEntity(userEntity), actions(actions) {};
   };
 }
 
