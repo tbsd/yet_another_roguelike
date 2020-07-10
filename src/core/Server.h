@@ -30,6 +30,7 @@ namespace RoguesParty {
           void onWSConnected(const CppServer::HTTP::HTTPRequest& request) override {
             std::cout << "Connected: " << id() << std::endl;
             game->startUserSession(id().string());
+            SendTextAsync(game->initData(id().string()).dump());
           }
 
           void onWSDisconnected() override {
@@ -44,8 +45,9 @@ namespace RoguesParty {
               Close(1000);
             try {
               auto data = nlohmann::json::parse(rawData);
-              SendTextAsync("Echoing: " + rawData);
               game->processInput(id().string(), data);
+              nlohmann::json newData = game->updatedData(id().string());
+              SendTextAsync(newData.dump());
             } catch (const nlohmann::json::parse_error &e) {
               /// TODO: replace with Log output system with timestamp, 
               /// decoration and stuff
