@@ -4,6 +4,7 @@
 #include "../component/Position.h"
 #include "World.h"
 #include "nlohmann/json.hpp"
+#include "../component/User.h"
 
 namespace RoguesParty {
   /** Contains and changes game state */
@@ -25,6 +26,19 @@ namespace RoguesParty {
 
       /** Ends player session */
       void endUserSession(std::string id);
+
+      /** @return new data since last update */
+      nlohmann::json updatedData(std::string id);
+
+      /** @return all publically avalible data */
+      nlohmann::json fullData(std::string id);
+
+      /** @return initial data */
+      nlohmann::json initData(std::string id);
+
+    private:
+
+      entityx::Entity getUser(std::string_view id);
   };
 }
 
