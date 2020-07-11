@@ -5,12 +5,16 @@
 #include "World.h"
 #include "nlohmann/json.hpp"
 #include "../component/User.h"
+#include <memory>
+#include "../system/MapChangeSystem.h"
 
 namespace RoguesParty {
   /** Contains and changes game state */
   class Game : public entityx::EntityX {
     private:
       World world;
+      std::shared_ptr<MapChangeSystem> mapChangeSystem;
+
 
     public:
       Game();

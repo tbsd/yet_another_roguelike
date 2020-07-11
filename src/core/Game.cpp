@@ -3,14 +3,17 @@
 #include "../component/Position.h"
 #include "entityx/Entity.h"
 #include "../system/UserActionSystem.h"
+#include "../system/MapChangeSystem.h"
 #include "nlohmann/json.hpp"
 #include "TileType.h"
 #include <string>
+#include <memory>
 
 namespace RoguesParty {
 
   Game::Game() {
-    systems.add<UserActionSystem>();
+    systems.add<UserActionSystem>(events);
+    mapChangeSystem = systems.add<MapChangeSystem>(world.map);
     systems.configure();
   }
 
@@ -35,19 +38,8 @@ namespace RoguesParty {
   }
 
   nlohmann::json Game::updatedData(std::string id) {
-    auto user = getUser(id);
-    // TODO: replace with toJson()
-    auto position = user.component<Position>();
-    nlohmann::json result = {
-      {"field", {
-                  {{"type", TileType::HUMAN}, 
-                  {"x", position->x}, 
-                  {"y", position->y} , 
-                  {"z", position->z}}
-                }
-      }
-    };
-    return result;
+    mapChangeSystem->update();
+    return mapChangeSystem->delta();
   }
 
   nlohmann::json Game::fullData(std::string id) {
@@ -55,7 +47,7 @@ namespace RoguesParty {
   }
 
   nlohmann::json Game::initData(std::string id) {
-    return nlohmann::json();
+    return mapChangeSystem->delta();
   }
 
   entityx::Entity Game::getUser(std::string_view id) {
@@ -63,6 +55,7 @@ namespace RoguesParty {
     for (auto user : this->entities.entities_with_components(userComp)) 
       if (userComp->id == id)
         return user;
-    
+    // TODO: replace with something meaningfull
+    return entityx::Entity();
   }
 }

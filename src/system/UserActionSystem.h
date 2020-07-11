@@ -6,13 +6,20 @@
 #include "entityx/Entity.h"
 #include "../event/UserActionEvent.h"
 #include "../component/Position.h"
+#include "../component/User.h"
 #include "nlohmann/json.hpp"
+#include "../event/MapChangeEvent.h"
 
 namespace RoguesParty {
   /** Handles user actions */
   class UserActionSystem : public entityx::System<UserActionSystem>, 
   public entityx::Receiver<UserActionSystem> {
+    private:
+      entityx::EventManager &em;
+
     public:
+      UserActionSystem(entityx::EventManager &em) : em(em) {}
+
       void configure(entityx::EventManager &em) {
         em.subscribe<UserActionEvent>(*this);
       }
@@ -21,33 +28,30 @@ namespace RoguesParty {
           entityx::TimeDelta dt) {}
 
       void receive(const UserActionEvent &userActionEvent) {
-        /// TODO: add multiple actions processing
-        // for userActionEvent.actions["type"]
-        moveObject(userActionEvent);
-        // switch (userActionEvent.actions[""type]) {
-          // case UserAction::MOVE:
-            // moveObject(userActionEvent);
-            // break;
-          // case UserAction::ATTACK:
-            // break;
-        // }
+        auto target = userActionEvent.userEntity;
+        auto actions = userActionEvent.actions;
+        if (actions.contains("move"))
+          moveObject(target, actions["move"]);
       }
 
     private:
-      void moveObject(const UserActionEvent &userActionEvent) {
-        auto &params = userActionEvent.actions;
-        auto entity = userActionEvent.userEntity;
-        auto position = entity.component<Position>();
+      void moveObject(entityx::Entity target, nlohmann::json params) {
+        auto pos = target.component<Position>();
         /// guard against wrong type cast
         try {
-          position->x += static_cast<Coordinate>(params["move"]["x"]);
-          position->y += static_cast<Coordinate>(params["move"]["y"]);
-          position->z += static_cast<Coordinate>(params["move"]["z"]);
+          nlohmann::json mapChange;
+          mapChange["type"] = "move";
+          mapChange["from"] = {pos->x, pos->y, pos->z};
+          pos->x += static_cast<Coordinate>(params["x"]);
+          pos->y += static_cast<Coordinate>(params["y"]);
+          pos->z += static_cast<Coordinate>(params["z"]);
+          mapChange["to"] = {pos->x, pos->y, pos->z};
+          em.emit<MapChangeEvent>(target, mapChange);
         } catch (const nlohmann::json::type_error &e) {
           std::cerr <<  e.what() << std::endl;
         }
-        std::cout << "(" << position->x  << ", " << position->y << ", " << 
-          position->z << ")" << std::endl;
+        std::cout << "(" << pos->x  << ", " << pos->y << ", " << 
+          pos->z << ")" << std::endl;
       }
   };
 }

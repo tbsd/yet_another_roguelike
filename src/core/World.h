@@ -5,7 +5,7 @@
 namespace RoguesParty {
   /** Contains world maps and manages transitions beetween them */
   class World {
-    private:
+    public:
       Map map;
   };
 }
