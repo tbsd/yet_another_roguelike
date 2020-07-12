@@ -17,6 +17,8 @@ namespace RoguesParty {
       TileType type;
 
     public:
+      Tile(TileType type) : type(type) {};
+
       /** adds entity to the tile */
       void add(std::shared_ptr<entityx::Entity> object);
 
