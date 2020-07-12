@@ -26,10 +26,11 @@ namespace RoguesParty {
       void receive(const MapChangeEvent &event) {
         std::cout << event.action << std::endl;
         if (event.action["type"] == "move") {
-          auto from = event.action["from"];
-          auto to = event.action["to"];
-          addChange(from[0], from[1], TileType::GROUND);
-          addChange(to[0], to[1], TileType::HUMAN);
+          auto tmp = event.action["from"];
+          Position from(tmp[0], tmp[1], tmp[2]);
+          tmp = event.action["to"];
+          Position to(tmp[0], tmp[1], tmp[2]);
+          moveObject(event.target, from, to);
         }
       };
 
