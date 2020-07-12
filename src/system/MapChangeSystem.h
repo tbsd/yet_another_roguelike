@@ -46,7 +46,7 @@ namespace RoguesParty {
         for (size_t i = 0; i < map.map.size(); ++i)
           for (size_t j = 0; j < map.map[0].size(); ++j)
             changes.emplace_back(nlohmann::json {
-                {"type", map.map[i][j]},
+                {"type", map.map[i][j].type},
                 {"x", i},
                 {"y", j},
                 {"z", 0}});
