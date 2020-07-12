@@ -14,6 +14,10 @@ namespace RoguesParty {
     objects.insert(i, object);
   }
 
+  void Tile::reomve(std::shared_ptr<entityx::Entity> object) {
+    objects.remove(object);
+  }
+
   const std::list<std::shared_ptr<entityx::Entity>> &Tile::getEntities() {
     return objects;
   }
