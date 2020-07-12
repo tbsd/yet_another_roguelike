@@ -55,9 +55,6 @@ namespace RoguesParty {
       }
 
     private:
-      void addChange(Coordinate x, Coordinate y, TileType change) {
-        map.changedMap[x][y] = change;
-      }
 
   };
 }
