@@ -8,6 +8,7 @@
 #include "TileType.h"
 #include <string>
 #include <memory>
+#include <algorithm>
 
 namespace RoguesParty {
 
@@ -57,5 +58,28 @@ namespace RoguesParty {
         return user;
     // TODO: replace with something meaningfull
     return entityx::Entity();
+  }
+
+  /** Returns difference between current map state and changes made for 
+   * given user. Updates user caheMap */
+  nlohmann::json Game::delta(std::string id) {
+    auto user = getUser(id).component<User>();
+    std::list<nlohmann::json> changes;
+    auto xSize = std::min(world.map.map.size(), user->mapCache.size());
+    auto ySize = std::min(world.map.map[0].size(), user->mapCache[0].size());
+    std::cout << xSize << " " << ySize << std::endl;
+    for (size_t i = 0; i < xSize; ++i) {
+      for (size_t j = 0; j < ySize; ++j) {
+        if (user->mapCache[i][j] != world.map.map[i][j]) {
+          changes.emplace_back(nlohmann::json {
+              {"type", world.map.map[i][j]},
+              {"x", i},
+              {"y", j},
+              {"z", 0}});
+          user->mapCache[i][j] = world.map.map[i][j];
+        }
+      }
+    }
+    return {{"field", changes}};
   }
 }
