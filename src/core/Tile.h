@@ -10,11 +10,13 @@
 namespace RoguesParty {
   /** Contains map cell propertys */
   class Tile {
+    public: 
+      TileType type;
+
     private:
       /// contains entities placed on this tile ordered by size
       /// TODO: replace with boost::flat_set
       std::list<std::shared_ptr<entityx::Entity>> objects;
-      TileType type;
 
     public:
       Tile(TileType type) : type(type) {};
