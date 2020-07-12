@@ -43,6 +43,8 @@ namespace RoguesParty {
     private:
 
       entityx::Entity getUser(std::string_view id);
+
+      nlohmann::json delta(std::string id); 
   };
 }
 

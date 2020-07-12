@@ -54,24 +54,6 @@ namespace RoguesParty {
         return {{"field", changes}};
       }
 
-      /** Returns difference between current map state and changes made */
-      nlohmann::json delta() {
-        std::list<nlohmann::json> changes;
-        for (size_t i = 0; i < map.map.size(); ++i) {
-          for (size_t j = 0; j < map.map[0].size(); ++j) 
-            if (map.previousMap[i][j] != map.map[i][j]) {
-              std::cout << "diff" << std::endl;
-              changes.emplace_back(nlohmann::json {
-                  {"type", map.map[i][j]},
-                  {"x", i},
-                  {"y", j},
-                  {"z", 0}});
-            }
-        }
-        std::cout << "ololo" << changes << std::endl;
-        return {{"field", changes}};
-      }
-
     private:
       void addChange(Coordinate x, Coordinate y, TileType change) {
         map.changedMap[x][y] = change;

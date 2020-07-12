@@ -39,7 +39,7 @@ namespace RoguesParty {
 
   nlohmann::json Game::updatedData(std::string id) {
     mapChangeSystem->update();
-    return mapChangeSystem->delta();
+    return delta(id);
   }
 
   nlohmann::json Game::fullData(std::string id) {
@@ -47,7 +47,7 @@ namespace RoguesParty {
   }
 
   nlohmann::json Game::initData(std::string id) {
-    return mapChangeSystem->delta();
+    return delta(id);
   }
 
   entityx::Entity Game::getUser(std::string_view id) {
