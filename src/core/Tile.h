@@ -39,6 +39,9 @@ namespace RoguesParty {
       /** adds entity to the tile */
       void add(std::shared_ptr<entityx::Entity> object);
 
+      /** removes entity from the tile */
+      void reomve(std::shared_ptr<entityx::Entity> object);
+
       /** get objects on this tile */
       const std::list<std::shared_ptr<entityx::Entity>> &getEntities();
 
