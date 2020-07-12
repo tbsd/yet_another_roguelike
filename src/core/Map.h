@@ -11,6 +11,7 @@ namespace RoguesParty {
   /** Contains map data. Handles object positioning on map */
   class Map {
     friend class MapChangeSystem;
+    friend class Game;
     private:
       std::vector<std::vector<TileType>> map;
       std::vector<std::vector<TileType>> changedMap;
