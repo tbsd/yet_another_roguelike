@@ -72,7 +72,7 @@ namespace RoguesParty {
       for (size_t j = 0; j < ySize; ++j) {
         if (user->mapCache[i][j] != world.map.map[i][j]) {
           changes.emplace_back(nlohmann::json {
-              {"type", world.map.map[i][j]},
+              {"type", world.map.map[i][j].type},
               {"x", i},
               {"y", j},
               {"z", 0}});
