@@ -9,10 +9,10 @@ namespace RoguesParty {
   class MapChangeSystem : public entityx::System<MapChangeSystem>,
   public entityx::Receiver<MapChangeSystem> {
     public:
-      Map map;
+      Map &map;
 
     public:
-      MapChangeSystem(Map map) : map(map) {};
+      MapChangeSystem(Map &map) : map(map) {};
 
       void configure(entityx::EventManager &em) {
         em.subscribe<MapChangeEvent>(*this);
