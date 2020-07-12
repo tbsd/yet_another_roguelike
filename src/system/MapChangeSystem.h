@@ -62,6 +62,18 @@ namespace RoguesParty {
         map.changedMap[pos.x][pos.y].add(target);
       }
 
+      /** remove pointer to object from selected tile */
+      void reomveObject(std::shared_ptr<entityx::Entity> target, Position pos) {
+        map.changedMap[pos.x][pos.y].reomve(target);
+      }
+
+      /** move pointer from one tile to anther */
+      void moveObject(std::shared_ptr<entityx::Entity> target, Position from, 
+          Position to) {
+        setObject(target, to);
+        reomveObject(target, from);
+      }
+
   };
 }
 
