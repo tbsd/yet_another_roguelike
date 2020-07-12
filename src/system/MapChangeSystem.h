@@ -4,6 +4,8 @@
 #include "../event/MapChangeEvent.h"
 #include <vector>
 #include "../core/Map.h"
+#include "../component/Position.h"
+#include <memory>
 
 namespace RoguesParty {
   class MapChangeSystem : public entityx::System<MapChangeSystem>,
@@ -55,6 +57,10 @@ namespace RoguesParty {
       }
 
     private:
+      /** adds pointer to object to selected tile */
+      void setObject(std::shared_ptr<entityx::Entity> target, Position pos) {
+        map.changedMap[pos.x][pos.y].add(target);
+      }
 
   };
 }
