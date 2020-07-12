@@ -1,7 +1,7 @@
 #ifndef CHUNK_H
 #define CHUNK_H
 #include "entityx/Entity.h"
-#include "MapCell.h"
+#include "Tile.h"
 #include <list>
 
 namespace RoguesParty {
