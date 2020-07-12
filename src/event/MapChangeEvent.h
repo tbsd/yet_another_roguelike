@@ -3,10 +3,11 @@
 #include "../core/Map.h"
 #include "nlohmann/json.hpp"
 #include "entityx/Entity.h"
+#include <memory>
 
 namespace RoguesParty {
   struct MapChangeEvent {
-    entityx::Entity target; 
+    std::shared_ptr<entityx::Entity> target; 
     nlohmann::json action;
 
     MapChangeEvent(entityx::Entity target, nlohmann::json action) : 
