@@ -40,6 +40,20 @@ namespace RoguesParty {
         }
       }
 
+      /** @returns json with info about each map cell */
+      nlohmann::json getWholeMap() {
+        std::list<nlohmann::json> changes;
+        for (size_t i = 0; i < map.map.size(); ++i)
+          for (size_t j = 0; j < map.map[0].size(); ++j)
+            changes.emplace_back(nlohmann::json {
+                {"type", map.map[i][j]},
+                {"x", i},
+                {"y", j},
+                {"z", 0}});
+        std::cout << "ololo" << changes << std::endl;
+        return {{"field", changes}};
+      }
+
       /** Returns difference between current map state and changes made */
       nlohmann::json delta() {
         std::list<nlohmann::json> changes;
