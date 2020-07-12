@@ -1,9 +1,9 @@
-#ifndef MAPCELL_H
-#define MAPCELL_H
+#ifndef TILE_H
+#define TILE_H
 
 namespace RoguesParty {
   /** Contains map cell propertys */
-  class MapCell {
+  class Tile {
   };
 }
 
