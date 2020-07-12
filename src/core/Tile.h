@@ -19,7 +19,22 @@ namespace RoguesParty {
       std::list<std::shared_ptr<entityx::Entity>> objects;
 
     public:
-      Tile(TileType type) : type(type) {};
+      Tile(TileType type) : type(type) {}
+
+      friend bool operator== (const Tile &lhs, const Tile &rhs) {
+        if (lhs.type != rhs.type)
+          return false;
+        for (auto l = lhs.objects.cbegin(), r = rhs.objects.cbegin();
+            l != lhs.objects.cend() && r != rhs.objects.cend(); ++l, ++r) {
+          if (*l != *r)
+            return false;
+        }
+        return true;
+      }
+
+      friend bool operator!= (const Tile &lhs, const Tile &rhs) {
+        return !(lhs == rhs);
+      }
 
       /** adds entity to the tile */
       void add(std::shared_ptr<entityx::Entity> object);
