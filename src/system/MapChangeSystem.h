@@ -31,6 +31,14 @@ namespace RoguesParty {
           tmp = event.action["to"];
           Position to(tmp[0], tmp[1], tmp[2]);
           moveObject(event.target, from, to);
+        } else if (event.action["type"] == "add") {
+          auto tmp = event.action["position"];
+          Position to(tmp[0], tmp[1], tmp[2]);
+          setObject(event.target, to);
+        } else if (event.action["type"] == "remove") {
+          auto tmp = event.action["position"];
+          Position from(tmp[0], tmp[1], tmp[2]);
+          setObject(event.target, from);
         }
       };
 
