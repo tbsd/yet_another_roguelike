@@ -7,11 +7,11 @@
 
 namespace RoguesParty {
   struct MapChangeEvent {
-    std::shared_ptr<entityx::Entity> target; 
+    std::shared_ptr<entityx::Entity> target;
     nlohmann::json action;
 
     MapChangeEvent(entityx::Entity target, nlohmann::json action) : 
-      target(target), action(action) {};
+      target(std::make_shared<entityx::Entity>(target)), action(action) {};
   };
 }
 
