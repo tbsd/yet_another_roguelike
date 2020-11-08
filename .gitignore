@@ -4,3 +4,11 @@ compile_commands.json
 build/
 CMakeFiles/
 lib/
+.idea/
+cmake-build-debug/
+
+# ui
+src/ui/build/
+src/ui/node_modules
+src/ui/.pnp
+src/ui/.pnp.js
