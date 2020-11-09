@@ -1,3 +1,3 @@
-#define rogues_party_VERSION_MAJOR @rogues_party_VERSION_MAJOR@
-#define rogues_party_VERSION_MINOR @rogues_party_VERSION_MINOR@
+#define tbsd_roguelike_VERSION_MAJOR @rogues_party_VERSION_MAJOR@
+#define tbsd_roguelike_VERSION_MINOR @rogues_party_VERSION_MINOR@
 #define rogues_party_VERSION_PATCH @rogues_party_VERSION_PATCH@
