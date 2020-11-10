@@ -6,7 +6,7 @@
 #include <iostream>
 
 namespace tbsd {
-  const char* const Log::messageLabel[] = {"Message", "Warning", "Error", "FatalError"};
+  const char* const Log::messageLabel[] = {"Message", "Received", "Warning", "Error", "FatalError"};
 
   void Log::send(std::string_view msg, Log::Type type) {
     std::cout << "[" << messageLabel[type] << "] " << msg << std::endl;

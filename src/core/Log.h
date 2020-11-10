@@ -6,7 +6,7 @@ namespace tbsd {
   class Log {
   public:
     enum Type {
-      Message, Warning, Error, FatalError
+      Message, Received, Warning, Error, FatalError
     };
   private:
     static const char *const messageLabel[];
