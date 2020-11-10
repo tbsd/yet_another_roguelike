@@ -2,7 +2,7 @@
 #define SERVER_H
 #include "server/asio/service.h"
 #include "server/ws/ws_server.h"
-#include <iostream>
+#include "Log.h"
 
 namespace tbsd {
   /** Handles user connections to it in asynchronous way.*/
@@ -11,7 +11,7 @@ namespace tbsd {
     class AsioService : public CppServer::Asio::Service {
     protected:
       void onError(int error, const std::string& category, const std::string& message) override {
-        std::cerr << "Error: " << error << " '" << category << "': " << message << std::endl;
+        Log::send(std::to_string(error) + ": " + category + ": " + message, Log::Type::Error);
       }
     };
 
@@ -21,18 +21,18 @@ namespace tbsd {
 
     protected:
       void onWSConnected(const CppServer::HTTP::HTTPRequest& request) override {
-        std::cout << "Connected: " << id() << std::endl;
+        Log::send("Connected: " + id().string());
       }
 
       void onWSDisconnected() override {
-        std::cout << "Disconnected: " << id() << std::endl;
+        Log::send("Disconnected: " + id().string());
       }
 
       void onWSReceived(const void* buffer, size_t size) override {
       }
 
       void onError(int error, const std::string& category, const std::string& message) override {
-        std::cerr << "Error: " << error << " '" << category << "': " << message << std::endl;
+        Log::send(std::to_string(error) + ": " + category + ": " + message, Log::Type::Error);
       }
     };
 
@@ -49,7 +49,7 @@ namespace tbsd {
       }
 
       void onError(int error, const std::string& category, const std::string& message) override {
-        std::cerr << "Error: " << error << " '" << category << "': " << message << std::endl;
+        Log::send(std::to_string(error) + ": " + category + ": " + message, Log::Type::Error);
       }
     };
 
@@ -62,8 +62,8 @@ namespace tbsd {
     Server(int port) {
       service = std::make_shared<AsioService>();
       server = std::make_shared<WebSocketServer>(service, port);
-      std::cout << "Port: " << port << std::endl;
-      std::cout << "Full link: " << "http://localhost:" << port << std::endl;
+      Log::send("Port: " + std::to_string(port));
+      Log::send("Full link: http://localhost:" + std::to_string(port));
     };
 
     ~Server();

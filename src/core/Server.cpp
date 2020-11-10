@@ -10,6 +10,6 @@ namespace tbsd {
   void Server::run() {
     service->Start();
     server->Start();
-    std::cout << "Server is running..." << std::endl;
+    Log::send("Server is running...");
   }
 }
