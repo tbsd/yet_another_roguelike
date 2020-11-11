@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # remove previous executable
-rm build/rogues_party
+rm build/tbsd_roguelike
 
 # build project
 cd build
