@@ -22,7 +22,7 @@ target_link_libraries(tbsd_roguelike cppserver)
 # add_library(tbsd_roguelike INTERFACE)
 target_link_libraries(tbsd_roguelike nlohmann_json::nlohmann_json)
 
-set(CMAKE_CXX_FLAGS "-Wall -Wextra -pedantic -O1 -ggdb")
+set(CMAKE_CXX_FLAGS "-Wall -Wextra -pedantic -O1 -ggdb -Wno-unused-parameter")
 
 target_include_directories(tbsd_roguelike PUBLIC
   "${PROJECT_BINARY_DIR}"
