@@ -3,6 +3,9 @@
 #include "server/asio/service.h"
 #include "server/ws/ws_server.h"
 #include "Log.h"
+#include <queue>
+#include <utility>
+#include <mutex>
 
 namespace tbsd {
   /** Handles user connections to it in asynchronous way.*/
@@ -18,6 +21,10 @@ namespace tbsd {
     class WebSocketSession : public CppServer::WS::WSSession {
     public:
       using CppServer::WS::WSSession::WSSession;
+      std::queue<std::pair<WebSocketSession*, std::string>>& userActions;
+      WebSocketSession(const std::shared_ptr<CppServer::WS::WSServer>& server,
+                       std::queue<std::pair<WebSocketSession*, std::string>>& userActions)
+                       : CppServer::WS::WSSession(server), userActions(userActions) {};
 
     protected:
       void onWSConnected(const CppServer::HTTP::HTTPRequest& request) override {
@@ -29,7 +36,14 @@ namespace tbsd {
       }
 
       void onWSReceived(const void* buffer, size_t size) override {
+        std::string data((const char*) buffer, size);
+        std::mutex m;
+        m.lock();
+        userActions.emplace(this, data);
+        m.unlock();
       }
+
+
 
       void onError(int error, const std::string& category, const std::string& message) override {
         Log::send(std::to_string(error) + ": " + category + ": " + message, Log::Type::Error);
@@ -44,13 +58,17 @@ namespace tbsd {
       std::shared_ptr<CppServer::Asio::TCPSession> CreateSession(
           const std::shared_ptr<CppServer::Asio::TCPServer>& server) override {
         auto session = std::make_shared<WebSocketSession>(
-            std::dynamic_pointer_cast<CppServer::WS::WSServer>(server));
+            std::dynamic_pointer_cast<CppServer::WS::WSServer>(server), userActions);
         return session;
       }
 
       void onError(int error, const std::string& category, const std::string& message) override {
         Log::send(std::to_string(error) + ": " + category + ": " + message, Log::Type::Error);
       }
+
+    private:
+      friend Server;
+      std::queue<std::pair<WebSocketSession*, std::string>> userActions;
     };
 
 
@@ -70,6 +88,26 @@ namespace tbsd {
 
     /** Starts server */
     void run();
+
+    bool hasUserActions() {
+      return !server->userActions.empty();
+    }
+
+    std::pair<WebSocketSession*, std::string>* getUserAction() {
+      if (server->userActions.empty())
+        return nullptr;
+      auto action = &server->userActions.front();
+      server->userActions.pop();
+      return action;
+    }
+
+    void send(std::string_view data, WebSocketSession* client) {
+      if (client->IsConnected()) {
+        client->Send(data);
+      } else {
+        Log::send("Sending to disconnected client. Id: " + client->id().string(), Log::Warning);
+      }
+    }
 
   };
 }
