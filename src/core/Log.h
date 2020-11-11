@@ -1,6 +1,7 @@
 #ifndef TBSD_ROGUELIKE_LOGGER_H
 #define TBSD_ROGUELIKE_LOGGER_H
 #include <string_view>
+#include <iomanip>
 
 namespace tbsd {
   class Log {
