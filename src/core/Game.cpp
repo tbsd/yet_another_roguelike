@@ -15,5 +15,5 @@ namespace tbsd {
       } else
         m.unlock();
     }
-  };
+  }
 }
