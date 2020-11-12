@@ -14,7 +14,7 @@ include("cmake/CppServer.cmake")
 add_subdirectory(lib/json)
 
 file(GLOB PROJECT_SOURCES 
-  src/*.cpp src/*/*.cpp
+  src/*.cpp src/*/*.cpp src/core/IO.cpp
   )
 add_executable(tbsd_roguelike ${PROJECT_SOURCES})
 target_link_libraries(tbsd_roguelike entityx)
