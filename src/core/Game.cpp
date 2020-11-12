@@ -14,7 +14,6 @@ namespace tbsd {
       // Process data from console
       if (console.wait_for(std::chrono::seconds(0)) == std::future_status::ready) {
         consoleInput = console.get();
-        Log::send("Received command: " + consoleInput);
         console = std::async([&]{return io.getFromConsole();});
       }
       // Process data from server
@@ -23,8 +22,8 @@ namespace tbsd {
       if (server.hasUserActions()) {
         auto action = server.getUserAction();
         m.unlock();
-        Log::send(action->second, Log::Received);
-        server.send(action->second, action->first); // echo
+        Log::send(action->data, Log::Received);
+        server.send(*action); // echo
       } else
         m.unlock();
     }
