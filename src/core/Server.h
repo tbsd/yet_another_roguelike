@@ -6,6 +6,7 @@
 #include <queue>
 #include <utility>
 #include <mutex>
+#include "RawData.h"
 
 namespace tbsd {
   /** Handles user connections to it in asynchronous way.*/
@@ -21,9 +22,9 @@ namespace tbsd {
     class WebSocketSession : public CppServer::WS::WSSession {
     public:
       using CppServer::WS::WSSession::WSSession;
-      std::queue<std::pair<WebSocketSession*, std::string>>& userActions;
+      std::queue<RawData>& userActions;
       WebSocketSession(const std::shared_ptr<CppServer::WS::WSServer>& server,
-                       std::queue<std::pair<WebSocketSession*, std::string>>& userActions)
+                       std::queue<RawData>& userActions)
                        : CppServer::WS::WSSession(server), userActions(userActions) {};
 
     protected:
@@ -68,7 +69,7 @@ namespace tbsd {
 
     private:
       friend Server;
-      std::queue<std::pair<WebSocketSession*, std::string>> userActions;
+      std::queue<RawData> userActions;
     };
 
 
@@ -93,7 +94,7 @@ namespace tbsd {
       return !server->userActions.empty();
     }
 
-    std::pair<WebSocketSession*, std::string>* getUserAction() {
+    RawData* getUserAction() {
       if (server->userActions.empty())
         return nullptr;
       auto action = &server->userActions.front();
@@ -101,11 +102,11 @@ namespace tbsd {
       return action;
     }
 
-    void send(std::string_view data, WebSocketSession* client) {
-      if (client->IsConnected()) {
-        client->Send(data);
+    void send(RawData &message) {
+      if (message.session->IsConnected()) {
+        message.session->Send(message.data);
       } else {
-        Log::send("Sending to disconnected client. Id: " + client->id().string(), Log::Warning);
+        Log::send("Attempt to sending to disconnected client. Id: " + message.session->id().string(), Log::Warning);
       }
     }
 
