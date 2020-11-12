@@ -9,6 +9,8 @@ namespace tbsd {
   struct RawData {
     CppServer::WS::WSSession *session;
     std::string data;
+
+    RawData(CppServer::WS::WSSession *session, std::string data) : session(session), data(data) {}
   };
 }
 
