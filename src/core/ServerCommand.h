@@ -19,13 +19,15 @@ namespace tbsd {
 /// Commands from server command line
   enum ServerCommand {
     Shutdown,
-    Invalid
+    Invalid,
+    Empty
   };
 
 /// Contains mapping for commands from server command line
 const std::map<const char *, ServerCommand, strLess> CommandsMap {
       {"shut", Shutdown},
-      {"eof", Shutdown}
+      {"eof", Shutdown},
+      {"", Empty}
 };
 }
 

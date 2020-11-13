@@ -15,7 +15,6 @@ namespace tbsd {
       if (console.wait_for(std::chrono::seconds(0)) == std::future_status::ready) {
         consoleInput = console.get();
         ServerCommand command = io.parseCommand(consoleInput);
-        Log::send(std::to_string(command));
         if (command == Shutdown)
           return;
         else
@@ -36,7 +35,13 @@ namespace tbsd {
   }
 
   void Game::processCommand(ServerCommand command) {
-
+    switch (command) {
+      case Empty:
+        break;
+      case Invalid:
+      default:
+        Log::send("Invalid command", Log::Warning);
+    }
   }
 
 }
