@@ -24,7 +24,8 @@ namespace tbsd {
 
 /// Contains mapping for commands from server command line
 const std::map<const char *, ServerCommand, strLess> CommandsMap {
-      {"shut", Shutdown}
+      {"shut", Shutdown},
+      {"eof", Shutdown}
 };
 }
 

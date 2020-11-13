@@ -10,6 +10,8 @@ namespace tbsd {
   }
 
   std::string IO::getFromConsole() {
+    if (std::cin.eof())
+      return "eof";
     std::string input;
     std::getline(std::cin, input);
     return input;
