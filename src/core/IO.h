@@ -2,6 +2,8 @@
 #define TBSD_ROGUELIKE_IO_H
 #include <string>
 #include "UserAction.h"
+#include "ServerCommand.h"
+#include <string_view>
 
 
 namespace tbsd {
@@ -13,6 +15,9 @@ namespace tbsd {
 
     /// Parses user requests
     UserAction parseUserAction(std::string data);
+
+    /// Parses input from console on server side
+    ServerCommand parseCommand(std::string_view data);
   };
 }
 
