@@ -14,6 +14,12 @@ namespace tbsd {
       // Process data from console
       if (console.wait_for(std::chrono::seconds(0)) == std::future_status::ready) {
         consoleInput = console.get();
+        ServerCommand command = io.parseCommand(consoleInput);
+        Log::send(std::to_string(command));
+        if (command == Shutdown)
+          return;
+        else
+          processCommand(command);
         console = std::async([&]{return io.getFromConsole();});
       }
       // Process data from server
@@ -27,6 +33,10 @@ namespace tbsd {
       } else
         m.unlock();
     }
+  }
+
+  void Game::processCommand(ServerCommand command) {
+
   }
 
 }
