@@ -11,7 +11,7 @@ namespace tbsd {
     /// Get input from console
     std::string getFromConsole();
 
-    /// Parses input from console on server side
+    /// Parses user requests
     UserAction parseUserAction(std::string data);
   };
 }
