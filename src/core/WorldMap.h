@@ -26,6 +26,9 @@ namespace tbsd {
         Tile* at(size_t x, size_t y, size_t z) {
           return &chunk[x][y][z];
         }
+
+        [[nodiscard]]
+        std::string toString() const;
       };
 
       // type of map should allow fast insertion and remove of the first and
