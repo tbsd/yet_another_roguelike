@@ -51,6 +51,9 @@ namespace tbsd {
       BaseMap(size_t xChunksCount, size_t yChunksCount) : map(xChunksCount, std::list<Chunk>(yChunksCount)) {};
 
       BaseMap() : BaseMap(1, 1) {};
+
+      [[nodiscard]]
+      Tile* at(Position pos);
     };
 
     BaseMap mainMap;

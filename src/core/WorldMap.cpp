@@ -20,4 +20,8 @@ namespace tbsd {
     return result;
   }
 
+  WorldMap::Tile *WorldMap::BaseMap::at(Position pos) {
+    return map[pos.x / Chunk::chunkXSize][pos.y / Chunk::chunkYSize]
+    .at(pos.x % Chunk::chunkXSize, pos.y % Chunk::chunkYSize, pos.y);
+  }
 }
