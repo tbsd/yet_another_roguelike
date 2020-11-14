@@ -16,7 +16,7 @@ namespace tbsd {
         Array3d chunk;
 
       public:
-        Tile* get(size_t x, size_t y, size_t z) {
+        Tile* at(size_t x, size_t y, size_t z) {
           return &chunk[x][y][z];
         }
       };
