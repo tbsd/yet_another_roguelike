@@ -14,8 +14,9 @@ namespace tbsd {
       private:
         using Array3d = std::array<std::array<std::array<Tile, chunkSize>, chunkSize>, chunkSize>;
         Array3d chunk;
+
       public:
-        Tile& get(size_t x, size_t y, size_t z) {
+        Tile* get(size_t x, size_t y, size_t z) {
           return &chunk[x][y][z];
         }
       };
