@@ -30,6 +30,11 @@ namespace tbsd {
         }
 
         [[nodiscard]]
+        const Tile* at(size_t x, size_t y, size_t z) const {
+          return &chunk[z][y][x];
+        }
+
+        [[nodiscard]]
         std::string toString() const;
       };
 
