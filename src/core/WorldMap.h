@@ -3,6 +3,7 @@
 #include <list>
 #include <vector>
 #include <string>
+#include "../component/Position.h"
 
 
 namespace tbsd {
@@ -40,16 +41,16 @@ namespace tbsd {
       };
 
       // type of map should allow fast insertion and remove of the first and
-      // the last element for fast deserialization on demand
-      std::list<std::list<Chunk>> map;
+      // the last element for fast deserialization on demand and also have
+      // fast random access iterator
+      // TODO: replace with better class. Vector is very bad for it but it's fine for now
+      std::vector<std::vector<Chunk>> map;
 
     public:
       /// Parameters must be 1 or greater
       BaseMap(size_t xChunksCount, size_t yChunksCount) : map(xChunksCount, std::list<Chunk>(yChunksCount)) {};
 
       BaseMap() : BaseMap(1, 1) {};
-
-
     };
 
     BaseMap mainMap;
