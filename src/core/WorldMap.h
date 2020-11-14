@@ -6,7 +6,14 @@
 
 namespace tbsd {
   class WorldMap {
-    using Tile = char;
+    class Tile {
+    public:
+      using TileType = char;
+      TileType type;
+
+      Tile() : type('.') {};
+    };
+
     class BaseMap {
       class Chunk {
       public:
