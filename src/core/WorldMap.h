@@ -18,8 +18,8 @@ namespace tbsd {
       class Chunk {
       public:
       private:
-        const int chunkXSize = 10;
-        const int chunkYSize = 10;
+        static const int chunkXSize = 10;
+        static const int chunkYSize = 10;
         const int chunkZSize = 1;
         // vector3d[z][x][y]
         using Vector3d = std::vector<std::vector<std::vector<Tile>>>;
