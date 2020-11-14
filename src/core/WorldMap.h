@@ -18,10 +18,11 @@ namespace tbsd {
       class Chunk {
       public:
       private:
-        static constexpr size_t chunkSize = 10;
+        const int chunkXSize = 10;
+        const int chunkYSize = 10;
+        const int chunkZSize = 1;
         using Vector3d = std::vector<std::vector<std::vector<Tile>>>;
         Vector3d chunk;
-
       public:
         Tile* at(size_t x, size_t y, size_t z) {
           return &chunk[x][y][z];
