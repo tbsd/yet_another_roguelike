@@ -1,6 +1,7 @@
 #ifndef TBSD_ROGUELIKE_WORLDMAP_H
 #define TBSD_ROGUELIKE_WORLDMAP_H
 #include <list>
+#include <array>
 
 
 namespace tbsd {
@@ -11,8 +12,8 @@ namespace tbsd {
       public:
         static constexpr int chunkSize = 10;
       private:
-        Tile chunk[chunkSize][chunkSize][chunkSize];
-
+        using Array3d = std::array<std::array<std::array<Tile, chunkSize>, chunkSize>, chunkSize>;
+        Array3d chunk;
       public:
         Tile& get(size_t x, size_t y, size_t z) {
           return &chunk[x][y][z];
