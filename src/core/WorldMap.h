@@ -17,10 +17,10 @@ namespace tbsd {
     class BaseMap {
       class Chunk {
       public:
-      private:
         static const int chunkXSize = 10;
         static const int chunkYSize = 10;
         int chunkZSize = 1;
+      private:
         // vector3d[z][x][y]
         using Vector3d = std::vector<std::vector<std::vector<Tile>>>;
         Vector3d chunk;
