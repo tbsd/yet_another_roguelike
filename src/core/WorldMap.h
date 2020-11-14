@@ -21,11 +21,12 @@ namespace tbsd {
         const int chunkXSize = 10;
         const int chunkYSize = 10;
         const int chunkZSize = 1;
+        // vector3d[z][x][y]
         using Vector3d = std::vector<std::vector<std::vector<Tile>>>;
         Vector3d chunk;
       public:
         Tile* at(size_t x, size_t y, size_t z) {
-          return &chunk[x][y][z];
+          return &chunk[z][y][x];
         }
 
         [[nodiscard]]
