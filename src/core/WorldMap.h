@@ -56,7 +56,7 @@ namespace tbsd {
       Tile* at(Position pos);
     };
 
-    BaseMap mainMap;
+    BaseMap mainMap; // main world map
 
   public:
     [[nodiscard]]
