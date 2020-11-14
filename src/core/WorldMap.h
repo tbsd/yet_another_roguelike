@@ -1,7 +1,8 @@
 #ifndef TBSD_ROGUELIKE_WORLDMAP_H
 #define TBSD_ROGUELIKE_WORLDMAP_H
 #include <list>
-#include <array>
+#include <vector>
+#include <string>
 
 
 namespace tbsd {
@@ -13,14 +14,13 @@ namespace tbsd {
 
       Tile() : type('.') {};
     };
-
     class BaseMap {
       class Chunk {
       public:
-        static constexpr int chunkSize = 10;
       private:
-        using Array3d = std::array<std::array<std::array<Tile, chunkSize>, chunkSize>, chunkSize>;
-        Array3d chunk;
+        static constexpr size_t chunkSize = 10;
+        using Vector3d = std::vector<std::vector<std::vector<Tile>>>;
+        Vector3d chunk;
 
       public:
         Tile* at(size_t x, size_t y, size_t z) {
