@@ -25,6 +25,7 @@ namespace tbsd {
         using Vector3d = std::vector<std::vector<std::vector<Tile>>>;
         Vector3d chunk;
       public:
+        [[nodiscard]]
         Tile* at(size_t x, size_t y, size_t z) {
           return &chunk[z][y][x];
         }
