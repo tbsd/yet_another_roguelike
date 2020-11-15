@@ -43,12 +43,12 @@ namespace tbsd {
       // type of map should allow fast insertion and remove of the first and
       // the last element for fast deserialization on demand and also have
       // fast random access iterator
-      // TODO: replace with better class. Vector is very bad for it but it's fine for now
+      // TODO: replace with better solution. Vector is very bad for it but it's fine for now
       std::vector<std::vector<Chunk>> map;
 
     public:
       /// Parameters must be 1 or greater
-      BaseMap(size_t xChunksCount, size_t yChunksCount) : map(xChunksCount, std::list<Chunk>(yChunksCount)) {};
+      BaseMap(size_t xChunksCount, size_t yChunksCount) : map(xChunksCount, std::vector<Chunk>(yChunksCount)) {};
 
       BaseMap() : BaseMap(1, 1) {};
 
@@ -59,6 +59,7 @@ namespace tbsd {
     BaseMap mainMap; // main world map
 
   public:
+    // TODO: make it work with negative Coordinates
     [[nodiscard]]
     Tile* at(Position pos);
   };
