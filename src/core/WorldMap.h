@@ -3,6 +3,7 @@
 #include <list>
 #include <vector>
 #include <string>
+#include <array>
 #include "../component/Position.h"
 
 
@@ -16,24 +17,24 @@ namespace tbsd {
       Tile() : type('.') {};
     };
     class BaseMap {
+
+      /// Contains single 2d piece of map
       class Chunk {
       public:
-        static const int chunkXSize = 10;
-        static const int chunkYSize = 10;
-        int chunkZSize = 1;
+        static constexpr size_t chunkXSize = 50;
+        static constexpr size_t chunkYSize = 50;
       private:
-        // vector3d[z][x][y]
-        using Vector3d = std::vector<std::vector<std::vector<Tile>>>;
-        Vector3d chunk;
+        using Plane = std::array<std::array<Tile, chunkYSize>, chunkXSize>;
+        Plane chunk;
       public:
         [[nodiscard]]
-        Tile* at(size_t x, size_t y, size_t z) {
-          return &chunk[z][y][x];
+        Tile* at(Coordinate x, Coordinate y) noexcept {
+          return &chunk[x > 0 ? x : chunkXSize - x][y > 0 ? y : chunkYSize - y];
         }
 
         [[nodiscard]]
-        const Tile* at(size_t x, size_t y, size_t z) const {
-          return &chunk[z][y][x];
+        const Tile* at(Coordinate x, Coordinate y) const noexcept {
+          return &chunk[x > 0 ? x : chunkXSize - x][y > 0 ? y : chunkYSize - y];
         }
 
         [[nodiscard]]
