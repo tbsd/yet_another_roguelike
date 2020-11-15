@@ -17,6 +17,8 @@ namespace tbsd {
     return result;
   }
 
+  unsigned long long WorldMap::BaseMap::Chunk::nextId = 0;
+
   WorldMap::Tile *WorldMap::BaseMap::at(Position pos) {
     return map[pos.x / Chunk::chunkXSize][pos.y / Chunk::chunkYSize]
         .at(pos.x % Chunk::chunkXSize, pos.y % Chunk::chunkYSize);
