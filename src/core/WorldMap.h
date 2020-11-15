@@ -28,8 +28,7 @@ namespace tbsd {
         static constexpr size_t chunkXSize = 50;
         static constexpr size_t chunkYSize = 50;
       private:
-        using Plane = std::array<std::array<Tile, chunkYSize>, chunkXSize>;
-        Plane chunk;
+        std::vector<std::vector<Tile>> chunk;
       public:
         [[nodiscard]]
         Tile* at(Coordinate x, Coordinate y) noexcept {
