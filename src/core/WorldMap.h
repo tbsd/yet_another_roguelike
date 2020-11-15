@@ -16,7 +16,11 @@ namespace tbsd {
 
       Tile() : type('.') {};
     };
+
+    /// Contains map data
     class BaseMap {
+      //TODO: make it add chunks for z dimension on demand
+      //TODO: make it load/unload chunks on demand
 
       /// Contains single 2d piece of map
       class Chunk {
@@ -41,10 +45,7 @@ namespace tbsd {
         std::string toString() const;
       };
 
-      // type of map should allow fast insertion and remove of the first and
-      // the last element for fast deserialization on demand and also have
-      // fast random access iterator
-      // TODO: replace with better solution. Vector is very bad for it but it's fine for now
+      //TODO: add z levels
       std::vector<std::vector<Chunk>> map;
 
     public:
