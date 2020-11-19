@@ -27,3 +27,9 @@ set(CMAKE_CXX_FLAGS "-Wall -Wextra -pedantic -O1 -ggdb -Wno-unused-parameter")
 target_include_directories(tbsd_roguelike PUBLIC
   "${PROJECT_BINARY_DIR}"
 )
+
+set(FLATBUFFERS_SRC_DIR "lib/flatbuffers")
+add_subdirectory(${FLATBUFFERS_SRC_DIR}
+        ${CMAKE_CURRENT_BINARY_DIR}/flatbuffers-build
+        EXCLUDE_FROM_ALL)
+target_link_libraries(tbsd_roguelike flatbuffers)

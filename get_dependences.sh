@@ -12,4 +12,6 @@ cd ..
 
 git clone https://github.com/nlohmann/json
 
+git clone https://github.com/google/flatbuffers
+
 cd ..
