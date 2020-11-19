@@ -42,7 +42,7 @@ namespace tbsd {
 
         /// Loads existing data if possible, create new data otherwise
         void load() {
-          if (isLoaded()) {
+          if (!isLoaded()) {
             chunk.assign(chunkXSize, std::vector<Tile>(chunkYSize, Tile()));
           }
         }
