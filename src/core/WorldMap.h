@@ -77,7 +77,6 @@ namespace tbsd {
     BaseMap mainMap; // main world map
 
   public:
-    // TODO: make it work with negative Coordinates
     [[nodiscard]]
     Tile* at(Position pos);
   };
