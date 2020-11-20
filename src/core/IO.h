@@ -5,6 +5,7 @@
 #include "UserAction.h"
 #include "ServerCommand.h"
 #include <string_view>
+#include "Chunk.h"
 
 
 namespace tbsd {
@@ -13,6 +14,7 @@ namespace tbsd {
   public:
     /// Save files path
     static const std::filesystem::path SavePath;
+    static const std::filesystem::path ChunkSuffix;
 
     /// Get input from console
     std::string getFromConsole();
@@ -26,6 +28,8 @@ namespace tbsd {
     /// Reads whole file in binary mode
    std::vector<char> readFromFile(std::filesystem::path filePath);
 
+   /// Returns chunk save file path
+   std::filesystem::path getChunkPath(Chunk::ID id);
   };
 }
 

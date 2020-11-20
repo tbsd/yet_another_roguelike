@@ -10,6 +10,7 @@ namespace tbsd {
 /// Contains single 2d piece of map
   class Chunk {
   public:
+    //TODO: replace id with with char * or something like that
     using ID = unsigned long long;
     static constexpr size_t chunkXSize = 50;
     static constexpr size_t chunkYSize = 50;
