@@ -2,6 +2,7 @@
 #include "IO.h"
 #include "Log.h"
 #include <exception>
+#include <fstream>
 
 
 namespace tbsd {
@@ -25,5 +26,18 @@ namespace tbsd {
     }
   }
 
-//  std::string IO::getFromConsole()
+  std::vector<char> IO::readFromFile(std::string_view path) {
+    std::ifstream inFile(path.data(), std::ios::binary | std::ios::in);
+    inFile.seekg(0, std::ios::end);
+    size_t size = inFile.tellg();
+    inFile.seekg(0, std::ios::beg);
+    std::vector<char> rawData;
+    rawData.reserve(size);
+    rawData.insert(rawData.cbegin(),
+                   std::istreambuf_iterator<char>(inFile),
+                       std::istreambuf_iterator<char>());
+    inFile.close();
+    return rawData;
+  }
+
 }

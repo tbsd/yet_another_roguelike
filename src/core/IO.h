@@ -18,6 +18,9 @@ namespace tbsd {
 
     /// Parses input from console on server side
     ServerCommand parseCommand(std::string_view data);
+
+    /// Reads whole file in binary mode
+   std::vector<char> readFromFile(std::string_view path);
   };
 }
 
