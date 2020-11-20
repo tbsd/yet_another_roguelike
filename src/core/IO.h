@@ -12,7 +12,6 @@ namespace tbsd {
   class IO {
   public:
     /// Save files path
-//    static constexpr const char* const SavePath = "saves/";
     static const std::filesystem::path SavePath;
 
     /// Get input from console
@@ -26,6 +25,7 @@ namespace tbsd {
 
     /// Reads whole file in binary mode
    std::vector<char> readFromFile(std::filesystem::path filePath);
+
   };
 }
 
