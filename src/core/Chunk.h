@@ -17,7 +17,7 @@ namespace tbsd {
 
   private:
     std::vector<std::vector<Tile>> chunk;
-    ID nextId; // id for next created object
+    static ID nextId; // id for next created object
     ID id;
 
   public:
