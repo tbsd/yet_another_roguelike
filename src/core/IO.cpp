@@ -28,8 +28,8 @@ namespace tbsd {
     }
   }
 
-  std::vector<char> IO::readFromFile(std::string_view path) {
-    std::ifstream inFile(path.data(), std::ios::binary | std::ios::in);
+  std::vector<char> IO::readFromFile(std::filesystem::path filePath) {
+    std::ifstream inFile(filePath, std::ios::binary | std::ios::in);
     inFile.seekg(0, std::ios::end);
     size_t size = inFile.tellg();
     inFile.seekg(0, std::ios::beg);

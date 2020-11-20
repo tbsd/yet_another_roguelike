@@ -25,7 +25,7 @@ namespace tbsd {
     ServerCommand parseCommand(std::string_view data);
 
     /// Reads whole file in binary mode
-   std::vector<char> readFromFile(std::string_view path);
+   std::vector<char> readFromFile(std::filesystem::path filePath);
   };
 }
 
