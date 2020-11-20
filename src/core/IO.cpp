@@ -6,6 +6,8 @@
 
 
 namespace tbsd {
+  const std::filesystem::path IO::SavePath =  "saves/";
+
   UserAction IO::parseUserAction(std::string data) {
     return UserAction(data);
   }
