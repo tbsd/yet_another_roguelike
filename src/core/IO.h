@@ -14,7 +14,7 @@ namespace tbsd {
   public:
     /// Save files path
     static const std::filesystem::path SavePath;
-    static const std::filesystem::path ChunkSuffix;
+    static constexpr const char* const ChunkSuffix = ".ch";
 
     /// Get input from console
     std::string getFromConsole();
