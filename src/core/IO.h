@@ -8,13 +8,12 @@
 #include "Chunk.h"
 
 
-namespace tbsd {
 /// Handles input parsing and output encoding
-  class IO {
-  public:
+namespace tbsd::IO {
     /// Save files path
-    static const std::filesystem::path SavePath;
-    static constexpr const char* const ChunkSuffix = ".ch";
+    const std::filesystem::path SavePath = "saves/";
+    /// Suffix for chunk save files
+    constexpr const char* const ChunkSuffix = ".ch";
 
     /// Get input from console
     std::string getFromConsole();
@@ -26,11 +25,10 @@ namespace tbsd {
     ServerCommand parseCommand(std::string_view data);
 
     /// Reads whole file in binary mode
-   std::vector<char> readFromFile(std::filesystem::path filePath);
+    std::vector<char> readFromFile(std::filesystem::path filePath);
 
-   /// Returns chunk save file path
-   std::filesystem::path getChunkPath(Chunk::ID id);
-  };
-}
+    /// Returns chunk save file path
+    std::filesystem::path getChunkPath(Chunk::ID id);
+  }
 
 #endif //TBSD_ROGUELIKE_IO_H

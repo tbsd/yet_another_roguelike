@@ -5,14 +5,12 @@
 #include <fstream>
 
 
-namespace tbsd {
-  const std::filesystem::path IO::SavePath =  "saves/";
-
-  UserAction IO::parseUserAction(std::string data) {
+namespace tbsd::IO {
+  UserAction parseUserAction(std::string data) {
     return UserAction(data);
   }
 
-  std::string IO::getFromConsole() {
+  std::string getFromConsole() {
     if (std::cin.eof())
       return "eof";
     std::string input;
@@ -20,7 +18,7 @@ namespace tbsd {
     return input;
   }
 
-  ServerCommand IO::parseCommand(std::string_view data) {
+  ServerCommand parseCommand(std::string_view data) {
     try {
       return CommandsMap.at(data.data());
     } catch (std::out_of_range &ex) {
@@ -28,7 +26,7 @@ namespace tbsd {
     }
   }
 
-  std::vector<char> IO::readFromFile(std::filesystem::path filePath) {
+  std::vector<char> readFromFile(std::filesystem::path filePath) {
     std::ifstream inFile(filePath, std::ios::binary | std::ios::in);
     inFile.seekg(0, std::ios::end);
     size_t size = inFile.tellg();
@@ -42,8 +40,8 @@ namespace tbsd {
     return rawData;
   }
 
-  std::filesystem::path IO::getChunkPath(Chunk::ID id) {
+  std::filesystem::path getChunkPath(Chunk::ID id) {
     //TODO: remove to_string() when id would be char *
-    return IO::SavePath / (std::filesystem::path(std::to_string(id) + IO::ChunkSuffix));
+    return SavePath / (std::filesystem::path(std::to_string(id) + ChunkSuffix));
   }
 }

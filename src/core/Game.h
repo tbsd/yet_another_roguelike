@@ -8,7 +8,6 @@ namespace tbsd {
   /// Contains general information about game and handles reaction to user actions
   class Game {
     Server& server;
-    IO io;
 
   public:
     explicit Game(Server& server) : server(server){}

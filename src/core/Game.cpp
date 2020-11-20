@@ -8,18 +8,18 @@
 namespace tbsd {
   void Game::run() {
     std::string consoleInput;
-    std::future<std::string> console = std::async([&]{return io.getFromConsole();});
+    std::future<std::string> console = std::async([&]{return IO::getFromConsole();});
     // Main game loop
     while (true) {
       // Process data from console
       if (console.wait_for(std::chrono::seconds(0)) == std::future_status::ready) {
         consoleInput = console.get();
-        ServerCommand command = io.parseCommand(consoleInput);
+        ServerCommand command = IO::parseCommand(consoleInput);
         if (command == Shutdown)
           return;
         else
           processCommand(command);
-        console = std::async([&]{return io.getFromConsole();});
+        console = std::async([&]{return IO::getFromConsole();});
       }
       // Process data from server
       std::mutex m;
