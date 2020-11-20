@@ -10,12 +10,15 @@ namespace tbsd {
 /// Contains single 2d piece of map
   class Chunk {
   public:
+    using ID = unsigned long long;
     static constexpr size_t chunkXSize = 50;
     static constexpr size_t chunkYSize = 50;
+
   private:
     std::vector<std::vector<Tile>> chunk;
-    static unsigned long long nextId; // id for next created object
-    unsigned long long id;
+    ID nextId; // id for next created object
+    ID id;
+
   public:
     Chunk() : id(nextId++) {};
 
