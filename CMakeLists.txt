@@ -16,7 +16,7 @@ add_subdirectory(lib/json)
 file(GLOB PROJECT_SOURCES 
   src/*.cpp src/*/*.cpp src/core/IO.cpp
   )
-add_executable(tbsd_roguelike ${PROJECT_SOURCES})
+add_executable(tbsd_roguelike ${PROJECT_SOURCES} src/core/Tile.h src/core/BaseMap.cpp src/core/BaseMap.h src/core/Chunk.cpp src/core/Chunk.h)
 target_link_libraries(tbsd_roguelike entityx)
 target_link_libraries(tbsd_roguelike cppserver)
 # add_library(tbsd_roguelike INTERFACE)
