@@ -5,7 +5,7 @@
 #include "UserAction.h"
 #include "ServerCommand.h"
 #include <string_view>
-#include "Chunk.h"
+#include "ID.h"
 
 
 /// Handles input parsing and output encoding
@@ -28,7 +28,7 @@ namespace tbsd::IO {
     std::vector<char> readFromFile(std::filesystem::path filePath);
 
     /// Returns chunk save file path
-    std::filesystem::path getChunkPath(Chunk::ID id);
+    std::filesystem::path getChunkPath(ID id);
   }
 
 #endif //TBSD_ROGUELIKE_IO_H

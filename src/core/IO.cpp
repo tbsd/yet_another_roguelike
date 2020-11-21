@@ -40,7 +40,7 @@ namespace tbsd::IO {
     return rawData;
   }
 
-  std::filesystem::path getChunkPath(Chunk::ID id) {
+  std::filesystem::path getChunkPath(ID id) {
     //TODO: remove to_string() when id would be char *
     return SavePath / (std::filesystem::path(std::to_string(id) + ChunkSuffix));
   }
