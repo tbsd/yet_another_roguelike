@@ -28,16 +28,19 @@ namespace tbsd::IO {
 
   std::vector<char> readFromFile(std::filesystem::path filePath) {
     std::ifstream inFile(filePath, std::ios::binary | std::ios::in);
-    inFile.seekg(0, std::ios::end);
-    size_t size = inFile.tellg();
-    inFile.seekg(0, std::ios::beg);
-    std::vector<char> rawData;
-    rawData.reserve(size);
-    rawData.insert(rawData.cbegin(),
-                   std::istreambuf_iterator<char>(inFile),
-                       std::istreambuf_iterator<char>());
-    inFile.close();
-    return rawData;
+    if (inFile.is_open()) {
+      inFile.seekg(0, std::ios::end);
+      size_t size = inFile.tellg();
+      inFile.seekg(0, std::ios::beg);
+      std::vector<char> rawData;
+      rawData.reserve(size);
+      rawData.insert(rawData.cbegin(),
+                     std::istreambuf_iterator<char>(inFile),
+                     std::istreambuf_iterator<char>());
+      inFile.close();
+      return rawData;
+    } else
+      return {};
   }
 
   std::filesystem::path getChunkPath(ID id) {
