@@ -27,6 +27,9 @@ namespace tbsd::IO {
   /// Reads whole file in binary mode
   std::unique_ptr<char[]> readFromFile(std::filesystem::path filePath);
 
+  /// Writes to file in binary mode
+  void writeToFile(std::filesystem::path filePath, void* data, size_t size);
+
   /// Returns chunk save file path
   std::filesystem::path getChunkPath(ID id);
 }

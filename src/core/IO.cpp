@@ -44,4 +44,14 @@ namespace tbsd::IO {
     //TODO: remove to_string() when id would be char *
     return SavePath / (std::filesystem::path(std::to_string(id) + ChunkSuffix));
   }
+
+  void writeToFile(std::filesystem::path filePath, void* data, size_t size) {
+    std::ofstream oFile(filePath, std::ios::binary | std::ios::out);
+    if (oFile.is_open()) {
+      oFile.write(static_cast<const char*>(data), size);
+      oFile.close();
+    } else {
+      throw std::runtime_error("Can't write to " + filePath.relative_path().string());
+    }
+  }
 }
