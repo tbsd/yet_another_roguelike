@@ -5,8 +5,8 @@
 #include <string>
 #include <array>
 #include "../component/Position.h"
-#include "Tile.h"
 #include "BaseMap.h"
+#include "Tile_generated.h"
 
 
 namespace tbsd {
