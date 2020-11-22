@@ -2,48 +2,48 @@
 #define TBSD_ROGUELIKE_CHUNK_H
 #include <vector>
 #include <string>
+#include <fstream>
 #include "../component/Position.h"
-#include "Tile.h"
+#include "ChunkData_generated.h"
+#include "IO.h"
+#include "Log.h"
 
 
 namespace tbsd {
 /// Contains single 2d piece of map
   class Chunk {
   public:
-    //TODO: replace id with with char * or something like that
-    using ID = unsigned long long;
-    static constexpr size_t chunkXSize = 50;
-    static constexpr size_t chunkYSize = 50;
+    static constexpr Coordinate chunkXSize = 50;
+    static constexpr Coordinate chunkYSize = 50;
 
   private:
-    std::vector<std::vector<Tile>> chunk;
     static ID nextId; // id for next created object
     ID id;
+    ChunkDataT data;
 
   public:
-    Chunk() : id(nextId++) {};
+    Chunk() : id(nextId++), data() {};
 
     /// Returns true if chunk data is loaded to memory, false otherwise
     [[nodiscard]]
     bool isLoaded() const noexcept {
-      return !chunk.empty();
+      return !data.x.empty();
     }
 
     /// Loads existing data if possible, create new data otherwise
-    void load() {
-      if (!isLoaded()) {
-        chunk.assign(chunkXSize, std::vector<Tile>(chunkYSize, Tile()));
-      }
+    void load();
+
+    /// Stores chunk data to disk
+    void store();
+
+    [[nodiscard]]
+    Tile* at(Coordinate x, Coordinate y) noexcept {
+      return &data.x[x >= 0 ? x : chunkXSize - x]->y[y >= 0 ? y : chunkYSize - y];
     }
 
     [[nodiscard]]
-    Tile *at(Coordinate x, Coordinate y) noexcept {
-      return &chunk[x > 0 ? x : chunkXSize - x][y > 0 ? y : chunkYSize - y];
-    }
-
-    [[nodiscard]]
-    const Tile *at(Coordinate x, Coordinate y) const noexcept {
-      return &chunk[x > 0 ? x : chunkXSize - x][y > 0 ? y : chunkYSize - y];
+    const Tile* at(Coordinate x, Coordinate y) const noexcept {
+      return &data.x[x >= 0 ? x : chunkXSize - x]->y[y >= 0 ? y : chunkYSize - y];
     }
 
     [[nodiscard]]
