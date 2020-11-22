@@ -26,17 +26,14 @@ namespace tbsd::IO {
     }
   }
 
-  std::vector<char> readFromFile(std::filesystem::path filePath) {
+  std::unique_ptr<char[]> readFromFile(std::filesystem::path filePath) {
     std::ifstream inFile(filePath, std::ios::binary | std::ios::in);
     if (inFile.is_open()) {
       inFile.seekg(0, std::ios::end);
       size_t size = inFile.tellg();
       inFile.seekg(0, std::ios::beg);
-      std::vector<char> rawData;
-      rawData.reserve(size);
-      rawData.insert(rawData.cbegin(),
-                     std::istreambuf_iterator<char>(inFile),
-                     std::istreambuf_iterator<char>());
+      auto rawData = std::make_unique<char[]>(size);
+      inFile.read(rawData.get(), size);
       inFile.close();
       return rawData;
     } else
