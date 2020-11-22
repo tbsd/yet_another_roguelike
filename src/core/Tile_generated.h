@@ -9,105 +9,56 @@
 namespace tbsd {
 
 struct Tile;
-struct TileBuilder;
 
-enum TileType {
-  TileType_Ground = 46,
-  TileType_MIN = TileType_Ground,
-  TileType_MAX = TileType_Ground
+enum class TileType : int8_t {
+  Ground = 0,
+  Wall = 1,
+  MIN = Ground,
+  MAX = Wall
 };
 
-inline const TileType (&EnumValuesTileType())[1] {
+inline const TileType (&EnumValuesTileType())[2] {
   static const TileType values[] = {
-    TileType_Ground
+    TileType::Ground,
+    TileType::Wall
   };
   return values;
 }
 
 inline const char * const *EnumNamesTileType() {
-  static const char * const names[2] = {
+  static const char * const names[3] = {
     "Ground",
+    "Wall",
     nullptr
   };
   return names;
 }
 
 inline const char *EnumNameTileType(TileType e) {
-  if (flatbuffers::IsOutRange(e, TileType_Ground, TileType_Ground)) return "";
-  const size_t index = static_cast<size_t>(e) - static_cast<size_t>(TileType_Ground);
+  if (flatbuffers::IsOutRange(e, TileType::Ground, TileType::Wall)) return "";
+  const size_t index = static_cast<size_t>(e);
   return EnumNamesTileType()[index];
 }
 
-struct Tile FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
-  typedef TileBuilder Builder;
-  enum FlatBuffersVTableOffset FLATBUFFERS_VTABLE_UNDERLYING_TYPE {
-    VT_TYPE = 4
-  };
+FLATBUFFERS_MANUALLY_ALIGNED_STRUCT(1) Tile FLATBUFFERS_FINAL_CLASS {
+ private:
+  int8_t type_;
+
+ public:
+  Tile()
+      : type_(0) {
+  }
+  Tile(tbsd::TileType _type)
+      : type_(flatbuffers::EndianScalar(static_cast<int8_t>(_type))) {
+  }
   tbsd::TileType type() const {
-    return static_cast<tbsd::TileType>(GetField<int8_t>(VT_TYPE, 46));
+    return static_cast<tbsd::TileType>(flatbuffers::EndianScalar(type_));
   }
-  bool Verify(flatbuffers::Verifier &verifier) const {
-    return VerifyTableStart(verifier) &&
-           VerifyField<int8_t>(verifier, VT_TYPE) &&
-           verifier.EndTable();
+  void mutate_type(tbsd::TileType _type) {
+    flatbuffers::WriteScalar(&type_, static_cast<int8_t>(_type));
   }
 };
-
-struct TileBuilder {
-  typedef Tile Table;
-  flatbuffers::FlatBufferBuilder &fbb_;
-  flatbuffers::uoffset_t start_;
-  void add_type(tbsd::TileType type) {
-    fbb_.AddElement<int8_t>(Tile::VT_TYPE, static_cast<int8_t>(type), 46);
-  }
-  explicit TileBuilder(flatbuffers::FlatBufferBuilder &_fbb)
-        : fbb_(_fbb) {
-    start_ = fbb_.StartTable();
-  }
-  flatbuffers::Offset<Tile> Finish() {
-    const auto end = fbb_.EndTable(start_);
-    auto o = flatbuffers::Offset<Tile>(end);
-    return o;
-  }
-};
-
-inline flatbuffers::Offset<Tile> CreateTile(
-    flatbuffers::FlatBufferBuilder &_fbb,
-    tbsd::TileType type = tbsd::TileType_Ground) {
-  TileBuilder builder_(_fbb);
-  builder_.add_type(type);
-  return builder_.Finish();
-}
-
-inline const tbsd::Tile *GetTile(const void *buf) {
-  return flatbuffers::GetRoot<tbsd::Tile>(buf);
-}
-
-inline const tbsd::Tile *GetSizePrefixedTile(const void *buf) {
-  return flatbuffers::GetSizePrefixedRoot<tbsd::Tile>(buf);
-}
-
-inline bool VerifyTileBuffer(
-    flatbuffers::Verifier &verifier) {
-  return verifier.VerifyBuffer<tbsd::Tile>(nullptr);
-}
-
-inline bool VerifySizePrefixedTileBuffer(
-    flatbuffers::Verifier &verifier) {
-  return verifier.VerifySizePrefixedBuffer<tbsd::Tile>(nullptr);
-}
-
-inline void FinishTileBuffer(
-    flatbuffers::FlatBufferBuilder &fbb,
-    flatbuffers::Offset<tbsd::Tile> root) {
-  fbb.Finish(root);
-}
-
-inline void FinishSizePrefixedTileBuffer(
-    flatbuffers::FlatBufferBuilder &fbb,
-    flatbuffers::Offset<tbsd::Tile> root) {
-  fbb.FinishSizePrefixed(root);
-}
+FLATBUFFERS_STRUCT_END(Tile, 1);
 
 }  // namespace tbsd
 

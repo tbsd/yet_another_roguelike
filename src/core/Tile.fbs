@@ -1,11 +1,10 @@
 namespace tbsd;
 
 enum TileType : int8 {
-  Ground = 46
+  Ground,
+  Wall
 }
 
-table Tile {
-  type:TileType = Ground;
+struct Tile {
+  type:TileType;
 }
-
-root_type Tile;
