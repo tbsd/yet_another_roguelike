@@ -1,6 +1,6 @@
 #ifndef TBSD_ROGUELIKE_BASEMAP_H
 #define TBSD_ROGUELIKE_BASEMAP_H
-#include <vector>
+#include <array>
 #include "Chunk.h"
 
 
@@ -10,16 +10,12 @@ namespace tbsd {
     //TODO: make it add chunks for z dimension on demand
     //TODO: make it load/unload chunks on demand
 
-
+    // Use std::array instead of std::vector so it can work with flatbuffers
+    std::array<std::array<Chunk, 50>, 50> map;
+    //TODO: think of scalable solution
     //TODO: add z levels
-    std::vector <std::vector<Chunk>> map;
 
   public:
-    /// Parameters must be 1 or greater
-    BaseMap(size_t xChunksCount, size_t yChunksCount) : map(xChunksCount, std::vector<Chunk>(yChunksCount)) {};
-
-    BaseMap() : BaseMap(1, 1) {};
-
     [[nodiscard]]
     Tile* at(Position pos);
   };
