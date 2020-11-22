@@ -6,6 +6,7 @@ CMakeFiles/
 lib/
 .idea/
 cmake-build-debug/
+.clangd/
 
 # ui
 src/ui/build/
