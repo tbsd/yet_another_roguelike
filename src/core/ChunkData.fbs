@@ -1,0 +1,15 @@
+include "Tile.fbs";
+
+namespace tbsd;
+
+table TileArray {
+  y:[Tile];
+}
+
+
+table ChunkData {
+  id:uint64;
+  x:[TileArray];
+}
+
+root_type ChunkData;
