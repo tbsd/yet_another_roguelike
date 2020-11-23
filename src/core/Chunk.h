@@ -38,12 +38,12 @@ namespace tbsd {
 
     [[nodiscard]]
     Tile* at(Coordinate x, Coordinate y) noexcept {
-      return &data.x[x >= 0 ? x : chunkXSize - x]->y[y >= 0 ? y : chunkYSize - y];
+      return &data.x[x >= 0 ? x : chunkXSize + x]->y[y >= 0 ? y : chunkYSize + y];
     }
 
     [[nodiscard]]
     const Tile* at(Coordinate x, Coordinate y) const noexcept {
-      return &data.x[x >= 0 ? x : chunkXSize - x]->y[y >= 0 ? y : chunkYSize - y];
+      return &data.x[x >= 0 ? x : chunkXSize + x]->y[y >= 0 ? y : chunkYSize + y];
     }
 
     [[nodiscard]]
