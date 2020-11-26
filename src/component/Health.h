@@ -3,16 +3,16 @@
 
 
 namespace tbsd {
-  /// Represents health points
-  using HP = long;
+  /// Represents points of health, mana, damage, etc.
+  using Unit = long;
 
   /// Stores health data
   struct Health {
-    HP max;
-    HP hp;
+    Unit max;
+    Unit hp;
 
-    Health(HP max, HP hp) : max(max), hp(hp) {}
-    Health(HP max) : max(max), hp(max) {}
+    Health(Unit max, Unit hp) : max(max), hp(hp) {}
+    Health(Unit max) : max(max), hp(max) {}
   };
 }
 #endif //TBSD_ROGUELIKE_HEALTH_H
