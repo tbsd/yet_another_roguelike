@@ -1,11 +1,8 @@
 #ifndef TBSD_ROGUELIKE_HEALTH_H
 #define TBSD_ROGUELIKE_HEALTH_H
-
+#include "../core/Unit.h"
 
 namespace tbsd {
-  /// Represents points of health, mana, damage, etc.
-  using Unit = long;
-
   /// Stores health data
   struct Health {
     Unit max;
@@ -15,4 +12,5 @@ namespace tbsd {
     Health(Unit max) : max(max), hp(max) {}
   };
 }
+
 #endif //TBSD_ROGUELIKE_HEALTH_H
