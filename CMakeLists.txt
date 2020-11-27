@@ -14,7 +14,7 @@ add_subdirectory(lib/json)
 file(GLOB PROJECT_SOURCES 
   src/*.cpp src/*/*.cpp src/core/IO.cpp
   )
-add_executable(tbsd_roguelike ${PROJECT_SOURCES} src/core/Tile.h src/core/BaseMap.cpp src/core/BaseMap.h src/core/Chunk.cpp src/core/Chunk.h src/core/ID.h src/component/Health.h src/core/Unit.h)
+add_executable(tbsd_roguelike ${PROJECT_SOURCES} src/core/Tile.h src/core/BaseMap.cpp src/core/BaseMap.h src/core/Chunk.cpp src/core/Chunk.h src/core/ID.h src/component/Health.h src/core/Unit.h src/component/StatusEffects.h)
 target_link_libraries(tbsd_roguelike entityx)
 target_link_libraries(tbsd_roguelike cppserver)
 target_link_libraries(tbsd_roguelike nlohmann_json::nlohmann_json)
