@@ -2,13 +2,12 @@
 #define TBSD_ROGUELIKE_ACTION_H
 #include "Unit.h"
 #include <map>
-#include <string>
 
 namespace tbsd {
   /// Stores action type, arguments and time to complete this action
   struct Action {
     Unit time; // Time to complete action
-    std::map<std::string, std::string> args; // Stores command type and arguments
+    std::map<const char*, const char*> args; // Stores command type and arguments
 
     explicit Action(Unit time = 0) : time(time), args() {};
 
