@@ -15,6 +15,11 @@ namespace tbsd {
     friend bool operator>(const Action& lhs, const Action& rhs) {
       return lhs.time > rhs.time;
     }
+    struct Greater {
+      bool operator()(const Action& lhs, const Action& rhs) {
+        return lhs > rhs;
+      }
+    };
   };
 }
 
