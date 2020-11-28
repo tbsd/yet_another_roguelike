@@ -2,6 +2,7 @@
 #include <filesystem>
 #include "core/Server.h"
 #include "core/Game.h"
+#include "core/Action.h"
 
 /// Actions on application shut down
 void onExit();
@@ -9,6 +10,13 @@ void onExit();
 void createFiles();
 
 int main(int argc, char** argv) {
+  tbsd::Action meh;
+  std::cout << meh.time << std::endl;
+  meh.time = 4;
+  std::string str1("send");
+  std::string str2("data");
+  meh.args["command"] = str1.c_str();
+  std::cout << meh.args << std::endl;
   createFiles();
   const int port = 4096;
   tbsd::Server server(port);
