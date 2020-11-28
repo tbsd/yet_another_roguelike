@@ -12,6 +12,10 @@ namespace tbsd {
 
     explicit Action(Unit time = 0) : time(time), args() {};
 
+    /// Relation by time for sorting in priority order
+    friend bool operator>(const Action& lhs, const Action& rhs) {
+      return lhs.time > rhs.time;
+    }
   };
 }
 
