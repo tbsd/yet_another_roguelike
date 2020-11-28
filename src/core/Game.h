@@ -4,6 +4,7 @@
 #include "IO.h"
 #include "ServerCommand.h"
 #include "entityx/entityx.h"
+#include "Action.h"
 
 namespace tbsd {
   /// Contains general information about game and handles reaction to user actions
@@ -12,6 +13,7 @@ namespace tbsd {
     entityx::EventManager events;
     entityx::EntityManager entities;
     entityx::SystemManager systems;
+    std::priority_queue<Action, std::vector<Action>,  Action::Greater> actions;
 
   public:
     explicit Game(Server& server) : server(server), entities(events), systems(entities, events) {}
