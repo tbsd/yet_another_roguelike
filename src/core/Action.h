@@ -5,7 +5,9 @@
 
 namespace tbsd {
   /// Stores action type, arguments and time to complete this action
-  struct Action {
+  class Action {
+
+  public:
     Unit time; // Time to complete action
     std::map<const char*, const char*> args; // Stores command type and arguments
 
