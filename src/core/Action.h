@@ -1,17 +1,18 @@
 #ifndef TBSD_ROGUELIKE_ACTION_H
 #define TBSD_ROGUELIKE_ACTION_H
 #include "Unit.h"
-#include <map>
+#include "../component/Position.h"
+#include <any>
 
 namespace tbsd {
   /// Stores action type, arguments and time to complete this action
   class Action {
-
   public:
-    Unit time; // Time to complete action
-    std::map<const char*, const char*> args; // Stores command type and arguments
+    std::vector<std::any> data;
 
-    explicit Action(Unit time = 0) : time(time), args() {};
+    Unit time; // Time to complete action
+
+    explicit Action(Unit time = 0) : time(time) {};
 
     /// Relation by time for sorting in priority order
     friend bool operator>(const Action& lhs, const Action& rhs) {
@@ -22,6 +23,14 @@ namespace tbsd {
         return lhs > rhs;
       }
     };
+
+    template<class... Ts>
+    void setData(Ts... args) {
+      size_t count = 0;
+      ((args, ++count), ...);
+      data.reserve(count);
+      (data.emplace_back(args), ...);
+    }
   };
 }
 
