@@ -22,7 +22,7 @@ namespace tbsd {
         console = std::async([&]{return IO::getFromConsole();});
       }
       // Process data from server
-      std::mutex m;
+      static std::mutex m;
       m.lock();
       if (server.hasUserActions()) {
         auto action = server.getUserAction();
