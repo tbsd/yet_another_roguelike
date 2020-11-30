@@ -3,13 +3,15 @@
 #include "Unit.h"
 #include "../component/Position.h"
 #include <any>
+#include <nlohmann/json.hpp>
 
 namespace tbsd {
   /// Stores action type, arguments and time to complete this action
   class Action {
   public:
-    std::vector<std::any> data;
+    enum class Type {Move, _last};
 
+    std::vector<std::any> data;
     Unit time; // Time to complete action
 
     explicit Action(Unit time = 0) : time(time) {};
@@ -31,6 +33,8 @@ namespace tbsd {
       data.reserve(count);
       (data.emplace_back(args), ...);
     }
+
+    void setData(std::string_view rawJson);
   };
 }
 
