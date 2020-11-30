@@ -38,7 +38,7 @@ namespace tbsd {
 
       void onWSReceived(const void* buffer, size_t size) override {
         std::string data((const char*) buffer, size);
-        std::mutex m;
+        static std::mutex m;
         m.lock();
         userActions.emplace(this, data);
         m.unlock();
