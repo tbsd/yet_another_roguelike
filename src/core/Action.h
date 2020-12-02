@@ -39,6 +39,11 @@ namespace tbsd {
     }
 
     void setData(std::string_view rawJson);
+
+    [[nodiscard]]
+    Type getType() const {
+      return std::any_cast<Type>(data[0]);
+    }
   };
 }
 
