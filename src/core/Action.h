@@ -16,6 +16,10 @@ namespace tbsd {
 
     explicit Action(Unit time = 0) : time(time) {};
 
+    explicit Action(std::string_view data, Unit time = 0) : time(time) {
+      setData(data);
+    }
+
     /// Relation by time for sorting in priority order
     friend bool operator>(const Action& lhs, const Action& rhs) {
       return lhs.time > rhs.time;
