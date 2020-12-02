@@ -36,12 +36,18 @@ namespace tbsd {
         connectionData["action"] = Action::Type::Connected;
         static std::mutex m;
         m.lock();
-        userActions.emplace(this, connectionData.dump());
+        userActions.emplace(this, connectionData.dump()); // TODO: replace pointers with IDs?
         m.unlock();
       }
 
       void onWSDisconnected() override {
         Log::send("Disconnected: " + id().string());
+        nlohmann::json connectionData;
+        connectionData["action"] = Action::Type::Disconnected;
+        static std::mutex m;
+        m.lock();
+        userActions.emplace(this, connectionData.dump());
+        m.unlock();
       }
 
       void onWSReceived(const void* buffer, size_t size) override {
