@@ -6,7 +6,9 @@
 #include <queue>
 #include <utility>
 #include <mutex>
+#include <nlohmann/json.hpp>
 #include "RawData.h"
+#include "Action.h"
 
 namespace tbsd {
   /** Handles user connections to it in asynchronous way.*/
@@ -30,6 +32,12 @@ namespace tbsd {
     protected:
       void onWSConnected(const CppServer::HTTP::HTTPRequest& request) override {
         Log::send("Connected: " + id().string());
+        nlohmann::json connectionData;
+        connectionData["action"] = Action::Type::Connected;
+        static std::mutex m;
+        m.lock();
+        userActions.emplace(this, connectionData.dump());
+        m.unlock();
       }
 
       void onWSDisconnected() override {
