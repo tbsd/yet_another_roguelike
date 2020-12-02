@@ -9,7 +9,7 @@ namespace tbsd {
   /// Stores action type, arguments and time to complete this action
   class Action {
   public:
-    enum class Type {Move, _last};
+    enum class Type {Move, Connected, Disconnected, _last};
 
     std::vector<std::any> data;
     Unit time; // Time to complete action
