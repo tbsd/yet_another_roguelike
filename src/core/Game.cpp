@@ -26,6 +26,11 @@ namespace tbsd {
       m.lock();
       if (server.hasUserActions()) {
         auto action = server.getUserAction();
+        try {
+          actions.emplace(action->data);
+        } catch (std::exception &ex) {
+          Log::send(ex.what(), Log::Error);
+        }
         m.unlock();
         Log::send(action->data, Log::Received);
         server.send(*action); // echo
