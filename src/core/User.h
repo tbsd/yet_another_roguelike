@@ -8,7 +8,7 @@
 namespace tbsd {
   struct User {
     ID id;
-    CppServer::WS::WSSession session;
+    CppServer::WS::WSSession* session;
     std::vector<entityx::Entity> owned; // Collection of objects owned by user
   };
 }
