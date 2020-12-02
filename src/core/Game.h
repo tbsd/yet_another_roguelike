@@ -5,6 +5,7 @@
 #include "ServerCommand.h"
 #include "entityx/entityx.h"
 #include "Action.h"
+#include "User.h"
 
 namespace tbsd {
   /// Contains general information about game and handles reaction to user actions
@@ -14,6 +15,7 @@ namespace tbsd {
     entityx::EntityManager entities;
     entityx::SystemManager systems;
     std::priority_queue<Action, std::vector<Action>,  Action::Greater> actions;
+    std::vector<User> users; // active users;
 
   public:
     explicit Game(Server& server) : server(server), entities(events), systems(entities, events) {}
@@ -24,6 +26,8 @@ namespace tbsd {
 private:
   /// Processes command from server command line
   void processCommand(ServerCommand command);
+
+  void processActions();
   };
 }
 
