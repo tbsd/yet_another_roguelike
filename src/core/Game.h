@@ -21,6 +21,8 @@ namespace tbsd {
   public:
     explicit Game(Server& server) : server(server), entities(events), systems(entities, events) {}
 
+    /// Starts main game loop
+    virtual void run() = 0;
 
   private:
     void mainLoop(std::function<void(void)> newActionsHandler);
