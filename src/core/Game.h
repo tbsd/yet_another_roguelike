@@ -10,7 +10,7 @@
 namespace tbsd {
   /// Contains general information about game and handles reaction to user actions
   class Game {
-  private:
+  protected:
     Server& server;
     entityx::EventManager events;
     entityx::EntityManager entities;
@@ -24,7 +24,7 @@ namespace tbsd {
     /// Starts main game loop
     virtual void run() = 0;
 
-  private:
+  protected:
     void mainLoop(std::function<void(void)> newActionsHandler);
 
     /// Processes command from server command line
