@@ -12,7 +12,7 @@ include("cmake/CppServer.cmake")
 add_subdirectory(lib/json)
 
 file(GLOB PROJECT_SOURCES 
-  src/*.cpp src/*/*.cpp src/core/IO.cpp
+  src/*.cpp src/*/*.cpp src/core/IO.cpp src/TurnbasedGame.cpp
   )
 add_executable(tbsd_roguelike ${PROJECT_SOURCES} src/core/BaseMap.cpp src/core/BaseMap.h src/core/Chunk.cpp src/core/Chunk.h src/core/ID.h src/component/Health.h src/core/Unit.h src/component/StatusEffects.h src/core/Action.h src/core/Direction.h src/core/Action.cpp)
 target_link_libraries(tbsd_roguelike entityx)
