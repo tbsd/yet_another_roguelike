@@ -6,7 +6,39 @@
 #include "UserAction.h"
 
 namespace tbsd {
-  void Game::run() {
+
+
+  void Game::processActions(){
+    // TODO: make it parallel for actions with the same Action::time
+    while (!actions.empty()) {
+      auto action = actions.top();
+      Log::send("Got action: " + std::to_string(static_cast<int>(action.getType())), Log::Received);
+      switch (action.getType()) {
+        case Action::Type::Connected:
+          users.emplace_back(std::any_cast<CppServer::WS::WSSession*>(action.data.back()));
+          break;
+        case Action::Type::Disconnected:
+          auto session = std::any_cast<CppServer::WS::WSSession*>(action.data.back());
+          users.erase(
+              std::remove_if(users.begin(), users.end(), [&](User& u) {return u.session == session;}),
+              users.end());
+          break;
+      }
+      actions.pop();
+    }
+  }
+
+  void Game::processCommand(ServerCommand command) {
+    switch (command) {
+      case Empty:
+        break;
+      case Invalid:
+      default:
+        Log::send("Invalid command", Log::Warning);
+    }
+  }
+
+  void Game::mainLoop(std::function<void(void)> newActionsHandler) {
     std::string consoleInput;
     std::future<std::string> console = std::async([&]{return IO::getFromConsole();});
     // Main game loop
@@ -40,37 +72,8 @@ namespace tbsd {
         server.send(*action); // echo
       } else
         m.unlock();
-      processActions();
-    }
-  }
-
-  void Game::processActions(){
-    // TODO: make it parallel for actions with the same Action::time
-    while (!actions.empty()) {
-      auto action = actions.top();
-      Log::send("Got action: " + std::to_string(static_cast<int>(action.getType())), Log::Received);
-      switch (action.getType()) {
-        case Action::Type::Connected:
-          users.emplace_back(std::any_cast<CppServer::WS::WSSession*>(action.data.back()));
-          break;
-        case Action::Type::Disconnected:
-          auto session = std::any_cast<CppServer::WS::WSSession*>(action.data.back());
-          users.erase(
-              std::remove_if(users.begin(), users.end(), [&](User& u) {return u.session == session;}),
-              users.end());
-          break;
-      }
-      actions.pop();
-    }
-  }
-
-  void Game::processCommand(ServerCommand command) {
-    switch (command) {
-      case Empty:
-        break;
-      case Invalid:
-      default:
-        Log::send("Invalid command", Log::Warning);
+//      processActions();
+      newActionsHandler();
     }
   }
 
