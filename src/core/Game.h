@@ -24,6 +24,8 @@ namespace tbsd {
     /// Starts main game loop
     virtual void run() = 0;
 
+    virtual ~Game() = default;
+
   protected:
     void mainLoop(std::function<void(void)> newActionsHandler);
 
