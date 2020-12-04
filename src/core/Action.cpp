@@ -18,6 +18,12 @@ namespace tbsd {
       result.emplace_back(static_cast<Direction>(val));
     }
 
+    // TODO:  add parseEnum
+    template <class T>
+    void parseSimpleClass(const nlohmann::json& jsonAction, std::vector<std::any>& result, std::string_view fieldName) {
+      result.emplace_back(jsonAction.at(fieldName.data()));
+    }
+
     void parseActionType(const nlohmann::json& jsonAction, std::vector<std::any>& result) {
       int val = jsonAction.at("action");
       if (!isInEnumRange<Action::Type>(val))
