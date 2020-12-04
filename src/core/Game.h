@@ -17,6 +17,7 @@ namespace tbsd {
     entityx::SystemManager systems;
     std::priority_queue<Action, std::vector<Action>,  Action::Greater> actions;
     std::vector<User> users; // active users;
+    Unit apTime = 0; // current game time in action points
 
   public:
     explicit Game(Server& server) : server(server), entities(events), systems(entities, events) {}
