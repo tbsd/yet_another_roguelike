@@ -1,7 +1,7 @@
 #include <iostream>
 #include <filesystem>
 #include "core/Server.h"
-#include "core/Game.h"
+#include "core/RealtimeGame.h"
 
 /// Actions on application shut down
 void onExit();
@@ -13,7 +13,7 @@ int main(int argc, char** argv) {
   const int port = 4096;
   tbsd::Server server(port);
   server.run();
-  tbsd::Game game(server);
+  tbsd::RealtimeGame game(server, std::chrono::milliseconds(1000), 10);
   game.run();
   onExit();
   return 0;
