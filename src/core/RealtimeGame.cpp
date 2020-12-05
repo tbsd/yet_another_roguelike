@@ -14,7 +14,6 @@ namespace tbsd {
         }
         apTime += apPerTurn;
         decreaseTime(apPerTurn);
-        Log::send("meh");
       }
     });
   }
