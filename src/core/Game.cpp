@@ -69,4 +69,16 @@ namespace tbsd {
     }
   }
 
+  void Game::decreaseTime(Unit amount) {
+    // TODO: replace with a better solution. Create priority queue with random access?
+    std::priority_queue<Action, std::vector<Action>,  Action::Greater> decreased;
+    while (!actions.empty()) {
+      auto action = actions.top();
+      actions.pop();
+      action.time -= amount;
+      decreased.push(action);
+    }
+    actions = decreased;
+  }
+
 }

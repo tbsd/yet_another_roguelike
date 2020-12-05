@@ -34,6 +34,9 @@ namespace tbsd {
     void processCommand(ServerCommand command);
 
     void processAction(const Action& action);
+
+    /// Decreases time for each action in Game::actions
+    void decreaseTime(Unit amount);
   };
 }
 
