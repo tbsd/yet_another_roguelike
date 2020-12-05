@@ -8,6 +8,9 @@ namespace tbsd {
     using Game::Game;
 
     void run() override;
+
+  protected:
+    void processAllActions();
   };
 }
 
