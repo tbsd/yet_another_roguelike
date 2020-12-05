@@ -6,25 +6,17 @@
 #include "UserAction.h"
 
 namespace tbsd {
-
-
-  void Game::processActions(){
-    // TODO: make it parallel for actions with the same Action::time
-    while (!actions.empty()) {
-      auto action = actions.top();
-      Log::send("Got action: " + std::to_string(static_cast<int>(action.getType())), Log::Received);
-      switch (action.getType()) {
-        case Action::Type::Connected:
-          users.emplace_back(std::any_cast<CppServer::WS::WSSession*>(action.data.back()));
-          break;
-        case Action::Type::Disconnected:
-          auto session = std::any_cast<CppServer::WS::WSSession*>(action.data.back());
-          users.erase(
-              std::remove_if(users.begin(), users.end(), [&](User& u) {return u.session == session;}),
-              users.end());
-          break;
-      }
-      actions.pop();
+  void Game::processAction(const Action& action) {
+    switch (action.getType()) {
+      case Action::Type::Connected:
+        users.emplace_back(std::any_cast<CppServer::WS::WSSession*>(action.data.back()));
+        break;
+      case Action::Type::Disconnected:
+        auto session = std::any_cast<CppServer::WS::WSSession*>(action.data.back());
+        users.erase(
+            std::remove_if(users.begin(), users.end(), [&](User& u) {return u.session == session;}),
+            users.end());
+        break;
     }
   }
 

@@ -33,7 +33,7 @@ namespace tbsd {
     /// Processes command from server command line
     void processCommand(ServerCommand command);
 
-    void processActions();
+    void processAction(const Action& action);
   };
 }
 
