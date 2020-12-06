@@ -4,12 +4,19 @@
 #include <future>
 #include <chrono>
 #include "UserAction.h"
+#include "../component/Health.h"
 
 namespace tbsd {
   void Game::processAction(const Action& action) {
     switch (action.getType()) {
       case Action::Type::Connected:
         users.emplace_back(std::any_cast<CppServer::WS::WSSession*>(action.data.back()));
+        {
+          entityx::Entity playableChar = entities.create();
+          playableChar.assign<Position>(0, 0, 0);
+          playableChar.assign<Health>(100);
+          users.back().owned.push_back(playableChar);
+        }
         break;
       case Action::Type::Disconnected:
         auto session = std::any_cast<CppServer::WS::WSSession*>(action.data.back());
