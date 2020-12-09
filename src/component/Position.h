@@ -16,6 +16,8 @@ struct Position {
 
   Position(Coordinate x, Coordinate y, Coordinate z): x(x), y(y), z(z) {}
 
+  Position(const Position& other): x(other.x), y(other.y), z(other.z) {}
+
   Position& operator+=(const Position& rhs) {
     x += rhs.x;
     y += rhs.y;
